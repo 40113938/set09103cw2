@@ -26,7 +26,6 @@ SITE_WIDTH = 800
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-
 flask_db = FlaskDB(app)
 database = flask_db.database
 
@@ -66,19 +65,6 @@ class FTSEntry(FTSModel):
   class Meta:
     database=database
 
-@app.template_filter('clean_querystring')
-def clean_querystring(request_args, *keys_to_remove, **new_values):
-
-  querystring= dict((key, value) for key, value in request_args.items())
-  for key in keys_to_remove:
-    querystring.pop(key, None)
-  querystring.update(new_values)
-  return urllib.urlencode(querystring)
-
-@app.errorhandler(404)
-def not_found(exc):
-  return Repsonse('<h3>Not found</h3>'), 404
-
 def login_required(fn):
   @functools.wraps(fn)
   def inner(*args, **kwargs):
@@ -102,9 +88,22 @@ def login():
       flash('incorrect pass', 'danger')
   return render_template('login.html', next_url=next_url)
 
+
+@app.template_filter('clean_querystring')
+def clean_querystring(request_args, *keys_to_remove, **new_values):
+  querystring = dict((key, value) for key, value in request_args.items())
+  for key in keys_to_remove:
+    querystring.pop(key, None)
+  querystring.update(new_values)
+  return urlliv.urlencode(querystring)
+
+@app.errorhandler(404)
+def not_found(exc):
+  return Response('<h3>Not found</h3>'), 404
+
 def main():
   database.create_tables([Entry, FTSEntry], safe=True)
-  app.run(debug=False)
+  app.run(debug=True)
 
 if __name__ == '__main__':
   main()
