@@ -44,5 +44,9 @@ def search():
   name = [dict(name=row[0], yoc=row[1], main_actor=row[2], genre=row[3])for row in cur.fetchall()]
   return render_template('search.html', searchm=searchm, name=name)
 
+@app.route("/add/", methods=['POST', 'GET'])
+def add():
+  return render_template('add.html')
+
 if __name__ == "__main__":
   app.run(host='0.0.0.0', debug=True)

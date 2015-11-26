@@ -1,14 +1,16 @@
 <!doctype html>
 <body>
 <head>
-<link rel="stylesheet" type="text/css" href="{{url_for('static',
-filename='style.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',
+  filename='style.css')}}">
 </head>
 <ul>
   <li><a href=" {{ url_for('welcome') }}">Welcome</a></li>
   <li><a href=" {{ url_for('films') }}">Films</a></li>
   <li><a href=" {{ url_for('actors') }}">Actors</a></li>
-  <li><a href=" {{ url_for('search') }}">Search</a><li>
+  <li><a href=" {{ url_for('search') }}">Search</a></li>
+  <li><a href=" {{ url_for('add') }}">Add</a></li>
+
 </ul>
 
     <form action="../search/?key="  method="get" name="form">
@@ -20,8 +22,8 @@ filename='style.css')}}">
 {% for name in name%}
 <p>
 <strong>Name:</Strong>{{ name.name }}<br>
-<strong>Nationality:</Strong>{{ name.yoc }}<br>
-<strong>Year Formed:</Strong>{{ name.main_actor }}<br>
+<strong>Year::</Strong>{{ name.yoc }}<br>
+<strong>Main Actor:</Strong>{{ name.main_actor }}<br>
 <Strong>Genre:</Strong>{{ name.genre }}<br>
 </p>
 {% endfor %}
