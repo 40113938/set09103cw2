@@ -13,7 +13,7 @@ li{
 a:link, a:visited{
   display: block;
   width: 120px;
-  font-weight: bold;
+  font-weight: normal;
   color: #FFFFFF;
   background-color: #FF7F50;
   text-align: center;

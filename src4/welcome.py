@@ -46,7 +46,17 @@ def search():
 
 @app.route("/add/", methods=['POST', 'GET'])
 def add():
+
+  if request.method == 'POST':
+    g.db = get_db()
+    name = request.form['name']
+    yoc = request.form['yoc']
+    main_actor = request.form['main_actor']
+    genre = request.form['genre']
+    g.db.execute("INSERT INTO film(name, yoc, main_actor, genre) VALUES(?, ?, ?, ?)",(name, yoc, main_actor, genre))
+    g.db.commit()
   return render_template('add.html')
+
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0', debug=True)
