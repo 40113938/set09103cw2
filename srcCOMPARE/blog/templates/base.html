@@ -1,0 +1,44 @@
+<doctype html>
+<html>
+  <head>
+    <title>Blogspotr</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/blog.min.css') }}" />
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/hilite.css') }}" />
+    {% block extra_head %}{% endblock %}
+    <script src="{{ url_for('static', filename='js/jquery-1.11.0.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    {% block extra_scripts %}{% endblock %}
+  </head>
+
+  <body>
+    <div class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url_for('index') }}">Blog</a>
+          <a class="navbar-brand" href="{{ url_for('signin') }}">Signin</a>
+          <a class="navbar-brand" href="{{ url_for('drafts') }}">Draft</a>
+          <a class="navbar-brand" href="{{ url_for('create') }}">Make Post</a>
+          <a class="navbar-brand" href="{{ url_for('logout') }}">Sign out</a>
+        </div>
+        {% block extra_header %}{% endblock %}
+          </ul>
+          {% block search_bar %}
+            <form action="{{ url_for('index') }}" class="navbar-form navbar-right" id="search-form" method="get" role="search">
+              <div class="form-group">
+                <input class="form-control" name="q" placeholder="Search" type="text" value="{% if search %}{{ search }}{% endif %}">
+              </div>
+            </form>
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+<div class="container">
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+ </div> 
+      {% endfor %}
+
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

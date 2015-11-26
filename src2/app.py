@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import (Flask, abort, flash, redirect, render_template, request,
 url_for)
 
-from flask.ext.stormpath import(StormpathError, StormpathManager, User,
+from flask_stormpath import(StormpathError, StormpathManager, User,
 login_required, login_user, logout_user, user)
 
 app=Flask(__name__)

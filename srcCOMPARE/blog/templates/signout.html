@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Sign off{% endblock %}
+
+{% block content_title %}Sign off{% endblock %}
+
+{% block content %}
+  <p>Click here to sign off.</p>
+  <form action="{{ url_for('logout') }}" class="form-horizontal" method="post">
+    <button class="btn btn-primary" type="submit">Sign off</button>
+  </form>
+{% endblock %}

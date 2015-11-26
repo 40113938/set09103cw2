@@ -50,10 +50,29 @@ class Entry(flask_db.Model):
       fts_entry = FTSEntry.get(FTSEntry.entry_id == self.id)
     except FTSEntry.DoesNotExist:
       fts_entry = FTSEntry(entry_id=self.id)
+      force_insert = True
     else:
       force_insert = False
-    fts_entry.content = '/n'.join((self.title, self.content))
+    fts_entry.content = '\n'.join((self.title, self.content))
     fts_entry.save(force_insert=force_insert)
+
+@classmethod
+def public(cls):
+  return Entry.select().where(Entry.published = True)
+
+@classmethod
+def search(cls, query):
+  words = [word.strip() for word in query.split() if word.strip()]
+  if not words:
+    return Entry.select().where(Entry.id == 0)
+  else:
+    search = ' '.join(words)
+
+  return (FTSEntry
+  .select(FTSEntry, Entry, FTSEntry.rank().alias('score'))
+  .join(Entry, on=(FTSEntry.entry_id ==  Entry.id).alias('entry'))
+  .where((Entry.published==True) & (FTSEntry.match(search)))
+  .order_by(SQL('score').desc()))
 
 class FTSEntry(FTSModel):
   entry_id = IntegerField()
@@ -70,7 +89,19 @@ def login_required(fn):
     return redirect(url_for('login', next=request.path))
   return inner
 
-@app.route('/login/'), methods=['GET','POST']
+@app.route('/login/', methods=['GET','POST'])
+def login():
+  next_url = request.args.get('next') or request.form.get('next')
+  if request.method == 'POST' and request.form.get('password'):
+    password = request.form.get('password')
+    if password == app.config['ADMIN_PASSWORD']:
+      session['logged_in'] = True
+      session.permanent = True
+      flash('you are now logged in', 'success')
+      return redirect(next_url or url_for('index'))
+    else:
+      flash('Incorrect password', 'danger')
+    return render_template('login.html', next_url=next_url)
 
 @app.route('/')
 def index():
