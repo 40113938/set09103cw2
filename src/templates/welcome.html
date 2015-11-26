@@ -1,0 +1,21 @@
+<!doctype html>
+<body>
+<head>
+<link rel="stylesheet" type="text/css" href="{{url_for('static',
+filename='style.css')}}">
+</head>
+<ul>
+  <li><a href=" {{ url_for('welcome') }}">Welcome</a></li>
+  <li><a href=" {{ url_for('films') }}">Films</a></li>
+  <li><a href=" {{ url_for('actors') }}">Actors</a></li>
+  <li><a href=" {{ url_for('search') }}">Search</a></li>
+  <li><a href=" {{ url_for('add') }}">Add</a></li>
+</ul>
+
+<form action = "../search/?key=" method="get" name="form">
+  <h1> Film Database</h1>
+  
+</form>
+<h3> Richard Cook - 40113938 </h3>
+</body>
+</html>
