@@ -46,9 +46,15 @@ def search():
 
 @app.route("/add/", methods=['POST', 'GET'])
 def add():
-  g.db = get_db()
-  
   return render_template('add.html')
+  g.db = get_db()
+  g.db.execute('insert or replace into film (name, year, main_actor, genre) values (?, ?, ?, ?)',[request.form['name'], request.form['year'],
+  request.form['main_actor'], request.form['genre']])
+  d.gb.commit()
+  flash('database updated')
+  #return redirect(url_for('add'))
+  
+
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0', debug=True)
