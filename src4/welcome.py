@@ -46,6 +46,8 @@ def search():
 
 @app.route("/add/", methods=['POST', 'GET'])
 def add():
+  g.db = get_db()
+  
   return render_template('add.html')
 
 if __name__ == "__main__":
