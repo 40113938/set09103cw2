@@ -48,10 +48,10 @@ def search():
   searchm = request.args.get('key', '')
   g.db = get_db()
   if searchm  == '':
-    cur = g.db.execute ("SELECT * FROM artist")
+    cur = g.db.execute ("SELECT * FROM film")
   else:
-    cur = g.db.execute ("SELECT * FROM artist WHERE name like ?", ("%" +  searchm  + "%", ))
-  name = [dict(name=row[0], yoc=row[1], nationality=row[2], genre=row[3])for row in cur.fetchall()]
+    cur = g.db.execute ("SELECT * FROM film  WHERE name like ?", ("%" +  searchm  + "%", ))
+  name = [dict(name=row[0], yoc=row[1], main_actor=row[2], genre=row[3])for row in cur.fetchall()]
   return render_template('search.html', searchm=searchm, name=name)
 
 if __name__ == "__main__":
