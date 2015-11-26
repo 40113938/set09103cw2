@@ -1,0 +1,29 @@
+<!doctype html>
+<body>
+<head>
+<link rel="stylesheet" type="text/css" href="{{url_for('static',
+filename='style.css')}}">
+</head>
+<ul>
+  <li><a href=" {{ url_for('welcome') }}">Welcome</a></li>
+  <li><a href=" {{ url_for('films') }}">Films</a></li>
+  <li><a href=" {{ url_for('actors') }}">Actors</a></li>
+  <li><a href=" {{ url_for('search') }}">Search</a><li>
+</ul>
+
+  <form action="../search/?key=" % name method="get" name="form">
+    <label for="search"Search:</label>
+    <input type="text" name="key" id="search"/>
+    <input type="submit" name="submit" id="submit"/>
+  </form>
+
+{% for film in film %}
+<p>
+<strong>Name:</strong> {{ film.name }}<br>
+<strong>Year:</strong> {{ film.yoc }}<br>
+<strong>Main Actor:</strong> {{ film.main_actor }}<br>
+<strong>Genre:</strong> {{ film.genre }}<br>
+</p>
+{% endfor %}
+</body>
+</html>
