@@ -46,14 +46,16 @@ def search():
 
 @app.route("/add/", methods=['POST', 'GET'])
 def add():
+
+  if request.method == 'POST':
+    g.db = get_db()
+    name = request.form['name']
+    yoc = request.form['yoc']
+    main_actor = request.form['main_actor']
+    genre = request.form['genre']
+    g.db.execute("INSERT INTO film(name, yoc, main_actor, genre) VALUES(?, ?, ?, ?)",(name, yoc, main_actor, genre))
+    g.db.commit()
   return render_template('add.html')
-  g.db = get_db()
-  g.db.execute('insert or replace into film (name, year, main_actor, genre) values (?, ?, ?, ?)',[request.form['name'], request.form['year'],
-  request.form['main_actor'], request.form['genre']])
-  d.gb.commit()
-  flash('database updated')
-  #return redirect(url_for('add'))
-  
 
 
 if __name__ == "__main__":
