@@ -36,12 +36,12 @@ def album():
   band = request.args.get('q', '')
   g.db = get_db()
   if band == '':
-    cur = g.db.execute ('SELECT * FROM album ORDER BY name')
+    cur = g.db.execute ('SELECT * FROM actor  ORDER BY name')
   else:
-    cur.g.db.execute ('SELECT * FROM album where name = ?', (band, ))
-  album = [dict(name=row[0],
-  artist=row[1], yor=row[2], length=row[3]) for row in cur.fetchall()]
-  return render_template('album.html', band=band, album=album)
+    cur.g.db.execute ('SELECT * FROM actor  where name = ?', (band, ))
+  actor = [dict(name=row[0],
+  age=row[1], known_for=row[2], nationality=row[3]) for row in cur.fetchall()]
+  return render_template('album.html', band=band, actor=actor)
 
 @app.route("/search/", methods=['POST', 'GET'])
 def search():

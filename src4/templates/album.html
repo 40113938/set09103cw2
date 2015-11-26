@@ -32,8 +32,8 @@ a:hover, a:active{
 
 <ul>
   <li><a href=" {{ url_for('welcome') }}">Welcome</a></li>
-  <li><a href=" {{ url_for('artist') }}">Artists</a></li>
-  <li><a href=" {{ url_for('album') }}">Albums</a></li>
+  <li><a href=" {{ url_for('artist') }}">Films</a></li>
+  <li><a href=" {{ url_for('album') }}">Actors</a></li>
   <li><a href=" {{ url_for('search') }}">Search</a><li>
 </ul>
 
@@ -43,12 +43,12 @@ a:hover, a:active{
     <input type="submit" name="submit" id="submit"/>
   </form>
 
-{% for album in album %}
+{% for actor in actor %}
 <p>
-<strong>Name:</strong> {{ album.name }}<br>
-<strong>Artist:</strong> {{ album.artist}}<br>
-<strong>Released:</strong> {{ album.yor}}<br>
-<strong>Album Length (minutes):</strong> {{album.length}}<br>
+<strong>Name:</strong> {{ actor.name }}<br>
+<strong>Artist:</strong> {{ actor.age}}<br>
+<strong>Released:</strong> {{ actor.known_for}}<br>
+<strong>Album Length (minutes):</strong> {{actor.nationality}}<br>
 </p>
 {% endfor %}
 </body>
